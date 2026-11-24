@@ -50,7 +50,7 @@ export const HeroSection: React.FC = () => {
           >
             <img
               src={HERO_PORTRAIT_FALLBACK}
-              alt="José Márquez — Técnico DAM y Ciberseguridad"
+              alt="José Márquez: Técnico DAM y Ciberseguridad"
               {...({ fetchpriority: 'high' } as React.ImgHTMLAttributes<HTMLImageElement>)}
               width={520}
               height={640}

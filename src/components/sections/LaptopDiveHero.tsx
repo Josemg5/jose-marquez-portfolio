@@ -28,7 +28,7 @@ const BADGE_URL = HX(
   1200
 );
 
-const JOSE_STUDIO_PLATE = '/studio-fondo.png';
+const JOSE_STUDIO_PLATE = '/studio-fondo.png?v=4';
 const JOSE_STUDIO_CUT = '/tu-foto.png?v=5';
 const JOSE_ID_PHOTO = '/tu-foto-carnet.jpg';
 
@@ -84,25 +84,25 @@ interface CaseHudMeta {
 const EXPERIENCE_CASES: CaseHudMeta[] = [
   {
     title: 'CIRCUITO ASCARI',
-    rows: ['PROGRAMADOR', 'POWER APPS · M365', 'MAR–MAY 2026'],
+    rows: ['PROGRAMADOR', 'POWER APPS · M365', 'MAR-MAY 2026'],
     key: '// 01 · circuito_ascari',
-    text: '— creación de una aplicación con Microsoft Power Apps y las apps de Microsoft para la gestión de incidencias en pista: personal, tiempos, materiales y trazabilidad.',
+    text: 'Creación de una aplicación con Microsoft Power Apps y las apps de Microsoft para la gestión de incidencias en pista: personal, tiempos, materiales y trazabilidad.',
     num: 'EXP 01 / 03',
     badge: 'POWER APPS // MICROSOFT 365',
   },
   {
     title: 'SAPPHIRE HOUSE',
-    rows: ['SOPORTE IT', 'AMBERES, BÉLGICA', 'ABR–JUN 2023'],
+    rows: ['SOPORTE IT', 'AMBERES, BÉLGICA', 'ABR-JUN 2023'],
     key: '// 02 · sapphire_antwerp',
-    text: '— prácticas internacionales en Bélgica dando soporte técnico a equipos de departamentos del hotel y resolviendo incidencias de red en habitaciones.',
+    text: 'Prácticas internacionales en Bélgica dando soporte técnico a equipos de departamentos del hotel y resolviendo incidencias de red en habitaciones.',
     num: 'EXP 02 / 03',
     badge: 'SOPORTE IT // ANTWERP',
   },
   {
     title: 'CLÍNICA PC',
-    rows: ['HARDWARE & CLIENTE', 'DECATHLON · RONDA', '2023–2026'],
+    rows: ['HARDWARE & CLIENTE', 'DECATHLON · RONDA', '2023-2026'],
     key: '// 03 · clinica_pc_decathlon',
-    text: '— reparación de hardware, limpieza, montaje y mejora de equipos en Clínica PC, complementado con atención directa al cliente en Decathlon.',
+    text: 'Reparación de hardware, limpieza, montaje y mejora de equipos en Clínica PC, complementado con atención directa al cliente en Decathlon.',
     num: 'EXP 03 / 03',
     badge: 'HARDWARE // OPTIMIZADO',
   },
@@ -113,7 +113,7 @@ const PERSONAL_CASES: CaseHudMeta[] = [
     title: 'RESERLY SAAS',
     rows: ['NEXT.JS 16 · SUPABASE', 'GOOGLE CALENDAR API', 'MULTI-TENANT RLS'],
     key: '// 01 · reserly_saas',
-    text: '— plataforma SaaS multi-tenant para peluquerías y barberías con portal público de reservas, horarios por empleado, métricas Recharts y sincronización con Google Calendar y Resend.',
+    text: 'Plataforma SaaS multi-tenant para peluquerías y barberías con portal público de reservas, horarios por empleado, métricas Recharts y sincronización con Google Calendar y Resend.',
     num: 'PROY 01 / 03',
     badge: 'NEXT.JS 16 // SUPABASE',
   },
@@ -121,7 +121,7 @@ const PERSONAL_CASES: CaseHudMeta[] = [
     title: 'CHINO HOLA',
     rows: ['CARTA DIGITAL RONDA', 'GSAP 3 · PARALLAX GPU', '14 ALÉRGENOS + CSP'],
     key: '// 02 · chino_hola_ronda',
-    text: '— carta digital interactiva oficial del Restaurante Chino HOLA (您好酒楼) en Ronda con 12 categorías, filtro en vivo de los 14 alérgenos y parallax en GPU.',
+    text: 'Carta digital interactiva oficial del Restaurante Chino HOLA (您好酒楼) en Ronda con 12 categorías, filtro en vivo de los 14 alérgenos y parallax en GPU.',
     num: 'PROY 02 / 03',
     badge: 'GSAP // 14 ALÉRGENOS',
   },
@@ -129,7 +129,7 @@ const PERSONAL_CASES: CaseHudMeta[] = [
     title: 'FLAMENKOS 3D',
     rows: ['THREE.JS · R3F · GLSL', 'GSAP 3 · LENIS SCROLL', 'MIGUEL LORCA · RONDA'],
     key: '// 03 · academia_flamenkos',
-    text: '— web cinemática 3D para la Academia FlamenKos de Miguel Lorca en Ronda con shaders GLSL líquidos, partículas WebGL, scrollytelling GSAP y cartelera interactiva.',
+    text: 'Web cinemática 3D para la Academia FlamenKos de Miguel Lorca en Ronda con shaders GLSL líquidos, partículas WebGL, scrollytelling GSAP y cartelera interactiva.',
     num: 'PROY 03 / 03',
     badge: 'THREE.JS // GLSL SHADERS',
   },
@@ -143,7 +143,7 @@ const TAB_HUD_META: Record<
     title: 'JOSÉ MÁRQUEZ',
     rows: ['DAM & CIBERSEGURIDAD', 'IES FUENTE GRANDE', 'RONDA, MÁLAGA'],
     key: '// sobre_mí',
-    text: '— técnico en Desarrollo de Aplicaciones Multiplataforma (DAM) y SMR, especializándome en Ciberseguridad en Entornos TI.',
+    text: 'Técnico en Desarrollo de Aplicaciones Multiplataforma (DAM) y SMR, especializándome en Ciberseguridad en Entornos TI.',
     num: 'PERFIL // CV',
     badge: 'PERFIL: VERIFICADO',
   },
@@ -151,7 +151,7 @@ const TAB_HUD_META: Record<
     title: 'ESPECIALIDADES',
     rows: ['JAVA · C# · C++ · PYTHON', 'SQL · MYSQL · JAVAFX', 'KALI · NMAP · SIEM'],
     key: '// áreas_y_stack',
-    text: '— desarrollo multiplataforma a medida, diseño de bases de datos relacionales, redes, hardware y auditoría de ciberseguridad.',
+    text: 'Desarrollo multiplataforma a medida, diseño de bases de datos relacionales, redes, hardware y auditoría de ciberseguridad.',
     num: 'ÁREAS // 05',
     badge: '5 ÁREAS // ACTIVAS',
   },
@@ -159,7 +159,7 @@ const TAB_HUD_META: Record<
     title: 'CONTACTO',
     rows: ['+34 666 74 04 37', 'RONDA, MÁLAGA', 'DISPONIBLE'],
     key: '// contacto_directo',
-    text: '— canales directos para proyectos y oportunidades en desarrollo multiplataforma DAM, soporte IT y ciberseguridad.',
+    text: 'Canales directos para proyectos y oportunidades en desarrollo multiplataforma DAM, soporte IT y ciberseguridad.',
     num: 'CONTACTO // DIRECTO',
     badge: 'DISPONIBLE // ACTIVO',
   },
@@ -215,8 +215,6 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
 
   const mobileWmRef = useRef<SVGSVGElement>(null);
   const mobileScriptRef = useRef<HTMLDivElement>(null);
-  const mobileBadgeWrapRef = useRef<HTMLDivElement>(null);
-  const mobileBadgeInnerRef = useRef<HTMLDivElement>(null);
 
   const tag1Ref = useRef<HTMLButtonElement>(null);
   const tag2Ref = useRef<HTMLButtonElement>(null);
@@ -225,13 +223,44 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
   const hintRef = useRef<HTMLButtonElement>(null);
 
   const swayAnimRef = useRef<Animation | null>(null);
-  const mobileSwayAnimRef = useRef<Animation | null>(null);
   const busyRef = useRef<boolean>(false);
   const hasEnteredRef = useRef<boolean>(false);
   const touchStartYRef = useRef<number | null>(null);
 
   const [plateSrc, setPlateSrc] = useState<string>(JOSE_STUDIO_PLATE);
   const [cutSrc, setCutSrc] = useState<string>(JOSE_STUDIO_CUT);
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+
+  const CODE_LINE = 'Dam & Cybersecurity';
+  const [typedLen, setTypedLen] = useState<number>(
+    shouldReduceMotion ? CODE_LINE.length : 0
+  );
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setTypedLen(CODE_LINE.length);
+      return;
+    }
+    if (stage !== 'hero') return;
+
+    setTypedLen(0);
+    let intervalId: number | undefined;
+    const startDelay = window.setTimeout(() => {
+      let i = 0;
+      intervalId = window.setInterval(() => {
+        i += 1;
+        setTypedLen(i);
+        if (i >= CODE_LINE.length && intervalId !== undefined) {
+          window.clearInterval(intervalId);
+        }
+      }, 65);
+    }, 900);
+
+    return () => {
+      window.clearTimeout(startDelay);
+      if (intervalId !== undefined) window.clearInterval(intervalId);
+    };
+  }, [stage, shouldReduceMotion]);
 
   const currentHud: CaseHudMeta =
     activeTab === 'projects'
@@ -308,22 +337,28 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
         if (mode === 'hero') {
           const s = cover;
           const x = (W - 1440 * s) / 2;
-          const y = 0;
+          const y = Math.min(0, (H - 810 * s) * 0.25);
           return { s, x, y, isMobile, u };
         } else {
-          // Balanced laptop size: larger and clearer without crowding the bottom or side HUD
-          const fitW = (W - 335 * u) / 920;
-          const fitH = (H - 54 * u) / 655;
-          const s = Math.min(fitW, fitH, Math.min(W / 1440, H / 810) * 1.04);
+          // Auto-scale laptop to fill the available screen height and width without covering top tags or side HUD
+          const topSafe = 48 * u;
+          const bottomSafe = 10 * u;
+          const availH = Math.max(320, H - topSafe - bottomSafe);
+          const sideReserve = W < 1200 ? 310 * u : 390 * u;
+          const availW = Math.max(520, W - sideReserve);
+          const fitW = availW / 935;
+          const fitH = availH / 672;
+          const s = Math.min(fitW, fitH);
           const x = (W - 1440 * s) / 2 - 14 * u;
-          const y = (H - 810 * s) / 2 + 8 * u;
+          const targetCenterY = topSafe + availH / 2;
+          const y = targetCenterY - 409 * s;
           return { s, x, y, isMobile, u };
         }
       } else {
         if (mode === 'hero') {
-          const s = Math.min(W / 650, (0.62 * H) / 810);
-          const x = W / 2 - 740 * s;
-          const y = H - 790 * s;
+          const s = Math.min(W / 465, (0.79 * H) / 810);
+          const x = W / 2 - 718 * s;
+          const y = H - 785 * s;
           return { s, x, y, isMobile, u };
         } else {
           const s = (W * 0.92) / 894.4;
@@ -343,11 +378,6 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
     document.documentElement.style.setProperty('--n', `${p.u}px`);
 
     if (p.isMobile) {
-      const mbadgeWidth = W * 0.27;
-      document.documentElement.style.setProperty(
-        '--mbs',
-        `${mbadgeWidth / 582}`
-      );
       return;
     }
 
@@ -382,9 +412,13 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
 
       const p = computePose(mode);
       document.documentElement.style.setProperty('--n', `${p.u}px`);
-      frame.style.transform = `translate(${p.x.toFixed(2)}px, ${p.y.toFixed(
-        2
-      )}px) scale(${p.s.toFixed(4)})`;
+      if (p.isMobile && mode !== 'hero') {
+        frame.style.transform = 'none';
+      } else {
+        frame.style.transform = `translate(${p.x.toFixed(2)}px, ${p.y.toFixed(
+          2
+        )}px) scale(${p.s.toFixed(4)})`;
+      }
 
       frame.classList.toggle('d-fade', !p.isMobile);
       frame.classList.toggle('m-fade', p.isMobile);
@@ -405,23 +439,10 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
     if (shouldReduceMotion) return;
 
     swayAnimRef.current?.cancel();
-    mobileSwayAnimRef.current?.cancel();
 
     if (badgeRef.current) {
       swayAnimRef.current = badgeRef.current.animate(
         [{ transform: 'rotate(-1.1deg)' }, { transform: 'rotate(1.1deg)' }],
-        {
-          duration: 3200,
-          iterations: Infinity,
-          direction: 'alternate',
-          easing: 'ease-in-out',
-        }
-      );
-    }
-
-    if (mobileBadgeInnerRef.current) {
-      mobileSwayAnimRef.current = mobileBadgeInnerRef.current.animate(
-        [{ rotate: '-1.1deg' }, { rotate: '1.1deg' }],
         {
           duration: 3200,
           iterations: Infinity,
@@ -583,18 +604,18 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
         );
       });
 
-      [scriptRef.current, mobileScriptRef.current].forEach((sc, idx) => {
+      [scriptRef.current, mobileScriptRef.current].forEach((sc) => {
         if (!sc) return;
-        const rot = idx === 0 ? 'rotate(-8deg)' : 'rotate(-7deg)';
+        const rot = 'rotate(-4deg)';
         sc.animate(
           [
-            { opacity: 0, transform: rot, clipPath: 'inset(0 100% 0 0)' },
-            { opacity: 1, transform: rot, clipPath: 'inset(0 0% 0 0)' },
+            { opacity: 0, transform: rot },
+            { opacity: 1, transform: rot },
           ],
           {
-            duration: 900,
-            delay: 1050,
-            easing: 'cubic-bezier(0.5, 0, 0.3, 1)',
+            duration: 300,
+            delay: 800,
+            easing: 'ease-out',
             fill: 'both',
           }
         );
@@ -677,8 +698,8 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
         );
       });
 
-      [scriptRef.current, mobileScriptRef.current].forEach((sc, idx) => {
-        const rot = idx === 0 ? 'rotate(-8deg)' : 'rotate(-7deg)';
+      [scriptRef.current, mobileScriptRef.current].forEach((sc) => {
+        const rot = 'rotate(-4deg)';
         sc?.animate(
           [
             { opacity: 1, transform: rot },
@@ -689,17 +710,16 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
       });
 
       swayAnimRef.current?.cancel();
-      mobileSwayAnimRef.current?.cancel();
 
-      [badgeRef.current, mobileBadgeWrapRef.current].forEach((b) => {
-        b?.animate(
+      if (badgeRef.current) {
+        badgeRef.current.animate(
           [
             { opacity: 1, transform: 'translateY(0%) rotate(0deg)' },
             { opacity: 0, transform: 'translateY(-110%) rotate(-6deg)' },
           ],
           { duration: 380, easing: outEase, fill: 'forwards' }
         );
-      });
+      }
 
       setTimeout(() => {
         const frame = frameRef.current;
@@ -726,8 +746,14 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
         });
         plate?.animate(
           [
-            { opacity: 1, filter: 'brightness(0.93) contrast(1.02) blur(0px)' },
-            { opacity: 0, filter: 'brightness(0.93) contrast(1.02) blur(8px)' },
+            {
+              opacity: 1,
+              filter: 'brightness(0.93) contrast(1.02) blur(0px)',
+            },
+            {
+              opacity: 0,
+              filter: 'brightness(0.93) contrast(1.02) blur(8px)',
+            },
           ],
           { duration: 520, easing: 'ease-out', fill: 'forwards' }
         );
@@ -869,15 +895,15 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
           );
         });
 
-        [scriptRef.current, mobileScriptRef.current].forEach((sc, idx) => {
-          const rot = idx === 0 ? 'rotate(-8deg)' : 'rotate(-7deg)';
+        [scriptRef.current, mobileScriptRef.current].forEach((sc) => {
+          const rot = 'rotate(-4deg)';
           sc?.animate(
             [
-              { opacity: 0, transform: rot, clipPath: 'inset(0 100% 0 0)' },
-              { opacity: 1, transform: rot, clipPath: 'inset(0 0% 0 0)' },
+              { opacity: 0, transform: rot },
+              { opacity: 1, transform: rot },
             ],
             {
-              duration: 700,
+              duration: 400,
               delay: 200,
               easing: defaultEase,
               fill: 'forwards',
@@ -885,8 +911,8 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
           );
         });
 
-        [badgeRef.current, mobileBadgeWrapRef.current].forEach((b) => {
-          const anim = b?.animate(
+        if (badgeRef.current) {
+          const anim = badgeRef.current.animate(
             [
               { opacity: 0, transform: 'translateY(-110%) rotate(6deg)' },
               {
@@ -898,10 +924,8 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
             ],
             { duration: 1050, easing: defaultEase, fill: 'forwards' }
           );
-          if (b === badgeRef.current && anim) {
-            anim.onfinish = () => startBadgeSway();
-          }
-        });
+          anim.onfinish = () => startBadgeSway();
+        }
       }, 240);
 
       setTimeout(() => {
@@ -1007,7 +1031,30 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
     [selectAndResetTab]
   );
 
-  const renderBadgeCardContent = () => (
+  const handleTabKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
+      let nextIndex: number | null = null;
+      if (e.key === 'ArrowRight') {
+        nextIndex = (currentIndex + 1) % BROWSER_TABS.length;
+      } else if (e.key === 'ArrowLeft') {
+        nextIndex =
+          (currentIndex - 1 + BROWSER_TABS.length) % BROWSER_TABS.length;
+      } else if (e.key === 'Home') {
+        nextIndex = 0;
+      } else if (e.key === 'End') {
+        nextIndex = BROWSER_TABS.length - 1;
+      }
+      if (nextIndex !== null) {
+        e.preventDefault();
+        const nextTab = BROWSER_TABS[nextIndex];
+        selectAndResetTab(nextTab.id);
+        tabRefs.current[nextTab.id]?.focus();
+      }
+    },
+    [selectAndResetTab]
+  );
+
+  const renderBadgeCardContent = (isMobileCopy = false) => (
     <>
       <img
         src={BADGE_URL}
@@ -1050,7 +1097,10 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
           </b>
         </div>
       </div>
-      <div
+      <button
+        type="button"
+        tabIndex={isMobileCopy || stage !== 'hero' ? -1 : 0}
+        aria-label="Abrir perfil Sobre mí de José Márquez"
         className="hd-badge-hit"
         onPointerEnter={handleBadgeHover}
         onClick={() => triggerDiveIntoLaptop('about')}
@@ -1141,9 +1191,13 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
             {renderBadgeCardContent()}
           </div>
 
-          {/* Layer 5 (z=6): Handwritten Script */}
+          {/* Layer 5 (z=6): Typewriter Code Tagline */}
           <div ref={scriptRef} className="hd-script">
-            dam &amp; cybersecurity
+            <span className="hd-code-prompt">&gt; </span>
+            {CODE_LINE.slice(0, typedLen)}
+            <span className="hd-code-cursor" aria-hidden="true">
+              _
+            </span>
           </div>
 
           {/* Layer 6 (z=7): Straight-on Laptop Case Plate */}
@@ -1166,14 +1220,26 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
             {/* Unified Cyber-Browser Topbar + Clear Section Tabs */}
             <div className="hd-browser-chrome select-none">
               <div className="hd-browser-tabbar">
+                <button
+                  type="button"
+                  onClick={() => onStageChange('diving-out')}
+                  aria-label="Volver a la portada de José Márquez"
+                  className="hd-mobile-back"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-[#4af699]" aria-hidden="true" />
+                  <span>José Márquez</span>
+                </button>
+
                 <div
                   className="hd-traffic-lights"
-                  title="Volver a la vista del estudio"
+                  role="group"
+                  aria-label="Controles de ventana"
                 >
                   <button
                     type="button"
                     onClick={() => onStageChange('diving-out')}
                     aria-label="Cerrar ventana y volver al estudio"
+                    title="Volver a la vista del estudio"
                     className="hd-tl hd-tl-red"
                   >
                     <span>×</span>
@@ -1182,6 +1248,7 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
                     type="button"
                     onClick={() => onStageChange('diving-out')}
                     aria-label="Minimizar ventana al estudio"
+                    title="Minimizar ventana al estudio"
                     className="hd-tl hd-tl-yellow"
                   >
                     <span>−</span>
@@ -1190,28 +1257,40 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
                     type="button"
                     onClick={() => selectAndResetTab(activeTab)}
                     aria-label="Recargar sección"
+                    title="Recargar sección"
                     className="hd-tl hd-tl-green"
                   >
                     <span>+</span>
                   </button>
                 </div>
 
-                {/* Clear Section Navigation Tabs */}
-                <div className="hd-tabs-list" role="tablist">
-                  {BROWSER_TABS.map(({ id, label, Icon }) => {
+                {/* Clear Section Navigation Tabs (WAI-ARIA Tablist) */}
+                <div
+                  className="hd-tabs-list"
+                  role="tablist"
+                  aria-label="Secciones del portafolio"
+                >
+                  {BROWSER_TABS.map(({ id, label, Icon }, idx) => {
                     const isActive = activeTab === id;
                     return (
                       <button
                         key={id}
+                        ref={(el) => {
+                          tabRefs.current[id] = el;
+                        }}
+                        id={`tab-${id}`}
                         type="button"
                         role="tab"
                         aria-selected={isActive}
+                        aria-controls={`panel-${id}`}
+                        tabIndex={isActive ? 0 : -1}
                         onClick={() => selectAndResetTab(id)}
+                        onKeyDown={(e) => handleTabKeyDown(e, idx)}
                         className={`hd-browser-tab ${
                           isActive ? 'hd-browser-tab-active' : ''
                         }`}
                       >
-                        <Icon className="w-3.5 h-3.5 shrink-0" />
+                        <Icon className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                         <span>{label}</span>
                         <span className="hd-tab-dot" aria-hidden="true" />
                       </button>
@@ -1219,7 +1298,7 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
                   })}
                 </div>
 
-                <div className="cp-badge-live hidden sm:inline-flex">
+                <div className="cp-badge-live">
                   {currentHud.badge}
                 </div>
               </div>
@@ -1240,7 +1319,7 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
       </div>
 
       {/* Viewport-Pinned UI (.hd-ui) */}
-      <div className="hd-ui">
+      <div className={`hd-ui ${stage !== 'hero' ? 'hd-ui-body' : ''}`}>
         {/* Back to Studio Circular Button (visible when inside the laptop view) */}
         {stage === 'body' && (
           <button
@@ -1370,22 +1449,30 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
           </>
         )}
 
-        {/* Mobile-only Wordmark, Script, and Badge copies (<= 820px) in Hero mode */}
-        {stage === 'hero' && (
+        {/* Mobile-only Wordmark and Script copies (<= 820px) in Hero mode */}
+        {(stage === 'hero' || stage === 'diving-out') && (
           <div className="hidden max-[820px]:block">
             <svg
               ref={mobileWmRef}
               viewBox="0 0 1440 240"
               preserveAspectRatio="none"
               className="fixed left-[3vw] w-[94vw] pointer-events-none"
-              style={{ top: 'calc(12px + 96 * var(--n))', height: '19vw' }}
+              style={{ top: 'calc(10px + 54 * var(--n))', height: '18.5vw' }}
+              aria-label="MÁRQUEZ"
             >
+              <defs>
+                <linearGradient id="hdWmGradMobile" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+                  <stop offset="55%" stopColor="#f1f5f3" stopOpacity="0.92" />
+                  <stop offset="100%" stopColor="#4af699" stopOpacity="0.38" />
+                </linearGradient>
+              </defs>
               <text
                 x="10"
                 y="210"
                 textLength="1420"
                 lengthAdjust="spacingAndGlyphs"
-                fill="url(#hdWmGrad)"
+                fill="url(#hdWmGradMobile)"
                 fontFamily="'Inter Tight', sans-serif"
                 fontWeight="900"
                 fontSize="250"
@@ -1397,39 +1484,20 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
 
             <div
               ref={mobileScriptRef}
-              className="fixed right-[6vw] font-['Caveat_Brush'] text-white pointer-events-none"
+              className="fixed right-[6vw] font-['JetBrains_Mono'] font-extrabold text-white pointer-events-none whitespace-nowrap"
               style={{
-                top: 'calc(12px + 96 * var(--n) + 14vw)',
-                fontSize: '11vw',
-                transform: 'rotate(-7deg)',
-                textShadow: '0 2px 10px rgba(0,0,0,0.2)',
+                top: 'calc(10px + 54 * var(--n) + 17vw)',
+                fontSize: '5.2vw',
+                transform: 'rotate(-4deg)',
+                textShadow:
+                  '0 3px 14px rgba(0,0,0,0.65), 0 0 18px rgba(74,246,153,0.3)',
               }}
             >
-              dam &amp; cybersecurity
-            </div>
-
-            <div
-              ref={mobileBadgeWrapRef}
-              className="fixed right-[2vw] pointer-events-none"
-              style={{
-                top: 'calc(12px + 96 * var(--n) + 9vw)',
-                width: '27vw',
-                height: 'calc(27vw * 1030 / 582)',
-                zIndex: -1,
-              }}
-            >
-              <div
-                ref={mobileBadgeInnerRef}
-                style={{
-                  width: '582px',
-                  height: '1030px',
-                  transformOrigin: '288px 0',
-                  scale: 'var(--mbs)',
-                  translate: 'calc(-288px + 13.5vw) 0',
-                }}
-              >
-                {renderBadgeCardContent()}
-              </div>
+              <span className="text-[#4af699]">&gt; </span>
+              {CODE_LINE.slice(0, typedLen)}
+              <span className="hd-code-cursor" aria-hidden="true">
+                _
+              </span>
             </div>
           </div>
         )}

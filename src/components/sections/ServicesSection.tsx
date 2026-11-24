@@ -6,7 +6,7 @@ export const ServicesSection: React.FC = () => {
   return (
     <section
       id="services"
-      className="w-full min-h-[558px] bg-[#061811] text-[#e6f9ef] p-5 grid grid-cols-1 md:grid-cols-12 gap-5 font-sans"
+      className="w-full min-h-[558px] bg-[#061811] text-[#e6f9ef] p-4 sm:p-5 pb-8 md:pb-5 grid grid-cols-1 md:grid-cols-12 gap-5 font-sans"
     >
       {/* Left Column (7 cols): 5 Core Specialties clean list */}
       <div className="md:col-span-7 flex flex-col justify-between">

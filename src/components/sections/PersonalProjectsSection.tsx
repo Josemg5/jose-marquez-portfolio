@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   CheckCircle2,
   ChevronLeft,
@@ -23,6 +23,8 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
   onSelectPersonal,
 }) => {
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const lastTriggerRef = useRef<HTMLElement | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string>('17:30');
   const [selectedMenuCategory, setSelectedMenuCategory] = useState<
     'entradas' | 'ternera' | 'cerdo'
@@ -31,10 +33,30 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
     'horarios' | 'compas'
   >('horarios');
 
+  const openLightbox = (imgUrl: string, triggerEl?: HTMLElement | null) => {
+    lastTriggerRef.current =
+      triggerEl || (document.activeElement as HTMLElement | null);
+    setLightboxImg(imgUrl);
+  };
+
+  const closeLightbox = () => {
+    setLightboxImg(null);
+    requestAnimationFrame(() => {
+      lastTriggerRef.current?.focus();
+    });
+  };
+
   useEffect(() => {
     if (!lightboxImg) return;
+    closeBtnRef.current?.focus();
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setLightboxImg(null);
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeLightbox();
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        closeBtnRef.current?.focus();
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
@@ -54,22 +76,23 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
   return (
     <section
       id="personal"
-      className="relative w-full h-[558px] overflow-hidden bg-[#061811] text-[#e6f9ef] p-4 flex flex-col justify-between gap-3 select-none font-sans"
+      className="relative w-full min-h-[558px] bg-[#061811] text-[#e6f9ef] p-4 pb-8 md:pb-4 flex flex-col justify-between gap-3 select-none font-sans"
     >
       {/* Clean Single-Line Personal Project Selector */}
-      <div className="flex items-center justify-between gap-3 border-b border-[#4af699]/15 pb-2.5 shrink-0">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-[#4af699]/15 pb-2.5 shrink-0">
+        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Selector de proyectos destacados">
           {PERSONAL_PROJECTS.map((proj, idx) => {
             const isActive = idx === activePersonalIndex;
             return (
               <button
                 key={proj.id}
                 type="button"
+                aria-pressed={isActive}
                 onClick={() => onSelectPersonal?.(idx)}
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-[5px] text-xs font-semibold transition-all cursor-pointer border ${
+                className={`inline-flex min-h-[32px] items-center gap-2 px-3 py-1.5 rounded-[5px] text-xs font-semibold transition-all cursor-pointer border active:scale-[0.98] ${
                   isActive
                     ? 'bg-[#4af699] text-[#05130e] border-[#4af699]'
-                    : 'bg-[#092319] text-[#c6f3dc] border-[#4af699]/20 hover:border-[#4af699]/50 hover:text-white'
+                    : 'bg-[#092319] text-[#c6f3dc] border-[#4af699]/55 hover:bg-[#0f3828] hover:border-[#4af699] hover:text-white'
                 }`}
               >
                 <span
@@ -90,9 +113,9 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
             type="button"
             onClick={() => handleStep(-1)}
             aria-label="Proyecto anterior"
-            className="p-1.5 rounded-[5px] border border-[#4af699]/25 bg-[#092319] text-[#4af699] hover:bg-[#4af699] hover:text-[#05130e] transition-colors cursor-pointer"
+            className="inline-flex items-center justify-center min-w-[32px] min-h-[32px] p-1.5 rounded-[5px] border border-[#4af699]/55 bg-[#092319] text-[#4af699] hover:bg-[#4af699] hover:text-[#05130e] active:scale-[0.97] transition-all cursor-pointer"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4" aria-hidden="true" />
           </button>
           <span className="font-mono text-[11px] text-[#9de8c2] px-1">
             {activePersonalIndex + 1}/{PERSONAL_PROJECTS.length}
@@ -101,22 +124,29 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
             type="button"
             onClick={() => handleStep(1)}
             aria-label="Siguiente proyecto"
-            className="p-1.5 rounded-[5px] border border-[#4af699]/25 bg-[#092319] text-[#4af699] hover:bg-[#4af699] hover:text-[#05130e] transition-colors cursor-pointer"
+            className="inline-flex items-center justify-center min-w-[32px] min-h-[32px] p-1.5 rounded-[5px] border border-[#4af699]/55 bg-[#092319] text-[#4af699] hover:bg-[#4af699] hover:text-[#05130e] active:scale-[0.97] transition-all cursor-pointer"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4" aria-hidden="true" />
           </button>
         </div>
       </div>
 
       {/* Main 2-Column Clean Layout */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 flex-1 min-h-0 items-stretch">
-        {/* LEFT COLUMN (7 cols): Real Project Info, Highlights & Real Tech Stack */}
+        {/* LEFT COLUMN (7 cols): Real Project Info, Action Bar, Highlights & Tech Stack */}
         <div className="md:col-span-7 flex flex-col justify-between gap-2.5 pr-1 min-h-0">
           <div className="space-y-2.5">
-            <div className="flex items-center justify-between gap-2 text-xs text-[#9de8c2]">
-              <span className="font-mono uppercase tracking-wide text-[#4af699]">
-                {currentProject.category}
-              </span>
+            {/* Project Category + Status Badge */}
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wide text-[#4af699]">
+                  {currentProject.category}
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-[3px] border border-[#4af699]/55 bg-[#082218] px-2 py-0.5 font-mono text-[10px] font-bold text-[#c6f3dc]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#4af699]" aria-hidden="true" />
+                  {currentProject.status}
+                </span>
+              </div>
             </div>
 
             <div>
@@ -138,7 +168,7 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
                   key={idx}
                   className="flex items-start gap-2 text-[12px] text-[#e6f9ef] leading-snug"
                 >
-                  <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#4af699]" />
+                  <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#4af699]" aria-hidden="true" />
                   <span>{item.trim()}</span>
                 </li>
               ))}
@@ -149,7 +179,7 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
             {currentProject.stack.map((tech) => (
               <span
                 key={tech}
-                className="px-2 py-0.5 rounded-[4px] bg-[#0a291d] border border-[#4af699]/25 text-[10.5px] font-medium text-[#b8f0d3]"
+                className="px-2 py-0.5 rounded-[4px] bg-[#0a291d] border border-[#4af699]/35 text-[10.5px] font-medium text-[#b8f0d3]"
               >
                 {tech}
               </span>
@@ -162,43 +192,44 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
           {/* App Screenshot Card (Click to enlarge) */}
           <button
             type="button"
-            onClick={() => setLightboxImg(currentProject.image)}
-            className="relative h-[175px] w-full group overflow-hidden rounded-[6px] border border-[#4af699]/30 bg-[#04100b] cursor-pointer text-left shrink-0"
+            aria-label={`Ampliar captura de la aplicación ${currentProject.name}`}
+            onClick={(e) => openLightbox(currentProject.image, e.currentTarget)}
+            className="relative h-[175px] w-full group overflow-hidden rounded-[6px] border border-[#4af699]/55 hover:border-[#4af699] bg-[#04100b] cursor-pointer text-left shrink-0 transition-colors"
           >
             <img
               src={currentProject.image}
               alt={`Vista de ${currentProject.name}`}
               className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
             />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#04100b]/90 via-[#04100b]/40 to-transparent px-3 py-2 flex items-center justify-between">
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#04100b]/95 via-[#04100b]/50 to-transparent px-3 py-2 flex items-center justify-between">
               <span className="font-mono text-[10px] font-bold text-white">
                 CAPTURA DE LA APP · CLIC PARA AMPLIAR
               </span>
-              <span className="p-1 rounded bg-[#05130e]/85 text-[#4af699] border border-[#4af699]/30">
-                <Maximize2 className="w-3.5 h-3.5" />
+              <span className="p-1 rounded bg-[#05130e]/90 text-[#4af699] border border-[#4af699]/55">
+                <Maximize2 className="w-3.5 h-3.5" aria-hidden="true" />
               </span>
             </div>
           </button>
 
           {/* Compact Interactive Data Card Below Screenshot */}
-          <div className="flex-1 flex flex-col justify-between rounded-[6px] border border-[#4af699]/25 bg-[#04120c] p-3 gap-2.5 min-h-0">
+          <div className="flex-1 flex flex-col justify-between rounded-[6px] border border-[#4af699]/30 bg-[#04120c] p-3 gap-2.5 min-h-0">
             <div className="flex items-center justify-between border-b border-[#4af699]/15 pb-1.5">
               <span className="font-mono text-[10.5px] font-bold text-[#4af699] inline-flex items-center gap-1.5">
                 {activePersonalIndex === 0 && (
                   <>
-                    <Calendar className="w-3.5 h-3.5" />
+                    <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
                     RESERLY · FLUJO DE RESERVAS
                   </>
                 )}
                 {activePersonalIndex === 1 && (
                   <>
-                    <Utensils className="w-3.5 h-3.5" />
+                    <Utensils className="w-3.5 h-3.5" aria-hidden="true" />
                     PLATOS REALES · CHINO HOLA
                   </>
                 )}
                 {activePersonalIndex === 2 && (
                   <>
-                    <Music className="w-3.5 h-3.5" />
+                    <Music className="w-3.5 h-3.5" aria-hidden="true" />
                     DISCIPLINAS &amp; CARTELERA · RONDA
                   </>
                 )}
@@ -208,21 +239,22 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
             {/* PREVIEW 01: RESERLY */}
             {activePersonalIndex === 0 && (
               <div className="flex-1 flex flex-col justify-between gap-2">
-                <div className="grid grid-cols-4 gap-1.5 font-mono text-[10.5px]">
+                <div className="grid grid-cols-4 gap-1.5 font-mono text-[10.5px]" role="group" aria-label="Horarios de cita disponibles">
                   {['09:30', '11:00', '17:30', '19:00'].map((slot) => {
                     const active = selectedSlot === slot;
                     return (
                       <button
                         key={slot}
                         type="button"
+                        aria-pressed={active}
                         onClick={() => setSelectedSlot(slot)}
-                        className={`py-1.5 rounded-[4px] font-bold border transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                        className={`min-h-[30px] py-1.5 rounded-[4px] font-bold border transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-[0.97] ${
                           active
                             ? 'bg-[#4af699] text-[#05130e] border-[#4af699]'
-                            : 'bg-[#082218] text-[#c6f3dc] border-[#4af699]/25 hover:border-[#4af699]'
+                            : 'bg-[#082218] text-[#c6f3dc] border-[#4af699]/55 hover:bg-[#0f3828] hover:border-[#4af699]'
                         }`}
                       >
-                        <Clock className="w-2.5 h-2.5" />
+                        <Clock className="w-2.5 h-2.5" aria-hidden="true" />
                         {slot}
                       </button>
                     );
@@ -239,7 +271,7 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
                     </div>
                   </div>
                   <span className="font-mono text-[9.5px] font-bold px-2 py-0.5 rounded bg-[#4af699] text-[#05130e] inline-flex items-center gap-1">
-                    <Check className="w-3 h-3" /> SYNC
+                    <Check className="w-3 h-3" aria-hidden="true" /> SYNC
                   </span>
                 </div>
               </div>
@@ -248,7 +280,7 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
             {/* PREVIEW 02: RESTAURANTE CHINO HOLA */}
             {activePersonalIndex === 1 && (
               <div className="flex-1 flex flex-col justify-between gap-2.5">
-                <div className="grid grid-cols-3 gap-1.5 text-[11px] font-semibold">
+                <div className="grid grid-cols-3 gap-1.5 text-[11px] font-semibold" role="group" aria-label="Categorías del menú">
                   {(
                     [
                       { id: 'entradas', label: 'Entradas' },
@@ -261,11 +293,12 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
                       <button
                         key={cat.id}
                         type="button"
+                        aria-pressed={active}
                         onClick={() => setSelectedMenuCategory(cat.id)}
-                        className={`py-1.5 px-2 rounded-[4px] border transition-all cursor-pointer ${
+                        className={`min-h-[30px] py-1.5 px-2 rounded-[4px] border transition-all cursor-pointer active:scale-[0.97] ${
                           active
                             ? 'bg-[#4af699] text-[#05130e] border-[#4af699]'
-                            : 'bg-[#082218] text-[#c6f3dc] border-[#4af699]/25 hover:border-[#4af699]'
+                            : 'bg-[#082218] text-[#c6f3dc] border-[#4af699]/55 hover:bg-[#0f3828] hover:border-[#4af699]'
                         }`}
                       >
                         {cat.label}
@@ -275,7 +308,7 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
                 </div>
 
                 {selectedMenuCategory === 'entradas' && (
-                  <div className="flex items-center justify-between bg-[#082218] px-3 py-2 rounded-[5px] border border-[#4af699]/20">
+                  <div className="flex items-center justify-between bg-[#082218] px-3 py-2 rounded-[5px] border border-[#4af699]/25">
                     <div>
                       <div className="text-xs font-bold text-white">
                         #12a Especial Rollito Vietnamita (Nam 4 pzs)
@@ -291,7 +324,7 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
                 )}
 
                 {selectedMenuCategory === 'ternera' && (
-                  <div className="flex items-center justify-between bg-[#082218] px-3 py-2 rounded-[5px] border border-[#4af699]/20">
+                  <div className="flex items-center justify-between bg-[#082218] px-3 py-2 rounded-[5px] border border-[#4af699]/25">
                     <div>
                       <div className="text-xs font-bold text-white">
                         #31 Ternera con Setas Chinas y Bambú
@@ -307,7 +340,7 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
                 )}
 
                 {selectedMenuCategory === 'cerdo' && (
-                  <div className="flex items-center justify-between bg-[#082218] px-3 py-2 rounded-[5px] border border-[#4af699]/20">
+                  <div className="flex items-center justify-between bg-[#082218] px-3 py-2 rounded-[5px] border border-[#4af699]/25">
                     <div>
                       <div className="text-xs font-bold text-white">
                         #44 Costilla Asada / #45 Salsa Agridulce
@@ -327,25 +360,27 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
             {/* PREVIEW 03: ACADEMIA FLAMENKOS */}
             {activePersonalIndex === 2 && (
               <div className="flex-1 flex flex-col justify-between gap-2.5">
-                <div className="grid grid-cols-2 gap-1.5 text-[11px] font-semibold">
+                <div className="grid grid-cols-2 gap-1.5 text-[11px] font-semibold" role="group" aria-label="Vista previa Academia FlamenKos">
                   <button
                     type="button"
+                    aria-pressed={selectedFlamencoTab === 'horarios'}
                     onClick={() => setSelectedFlamencoTab('horarios')}
-                    className={`py-1.5 px-2 rounded-[4px] border transition-all cursor-pointer ${
+                    className={`min-h-[30px] py-1.5 px-2 rounded-[4px] border transition-all cursor-pointer active:scale-[0.97] ${
                       selectedFlamencoTab === 'horarios'
                         ? 'bg-[#4af699] text-[#05130e] border-[#4af699]'
-                        : 'bg-[#082218] text-[#c6f3dc] border-[#4af699]/25 hover:border-[#4af699]'
+                        : 'bg-[#082218] text-[#c6f3dc] border-[#4af699]/55 hover:bg-[#0f3828] hover:border-[#4af699]'
                     }`}
                   >
                     6 Disciplinas WebGL
                   </button>
                   <button
                     type="button"
+                    aria-pressed={selectedFlamencoTab === 'compas'}
                     onClick={() => setSelectedFlamencoTab('compas')}
-                    className={`py-1.5 px-2 rounded-[4px] border transition-all cursor-pointer ${
+                    className={`min-h-[30px] py-1.5 px-2 rounded-[4px] border transition-all cursor-pointer active:scale-[0.97] ${
                       selectedFlamencoTab === 'compas'
                         ? 'bg-[#4af699] text-[#05130e] border-[#4af699]'
-                        : 'bg-[#082218] text-[#c6f3dc] border-[#4af699]/25 hover:border-[#4af699]'
+                        : 'bg-[#082218] text-[#c6f3dc] border-[#4af699]/55 hover:bg-[#0f3828] hover:border-[#4af699]'
                     }`}
                   >
                     Cartelera &amp; Eventos
@@ -353,7 +388,7 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
                 </div>
 
                 {selectedFlamencoTab === 'horarios' ? (
-                  <div className="flex items-center justify-between bg-[#082218] px-3 py-2 rounded-[5px] border border-[#4af699]/20">
+                  <div className="flex items-center justify-between bg-[#082218] px-3 py-2 rounded-[5px] border border-[#4af699]/25">
                     <div>
                       <div className="text-xs font-bold text-white">
                         Taconeo · Bata de Cola · Cantera 3+ · Castañuelas
@@ -367,7 +402,7 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
                     </span>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-between bg-[#082218] px-3 py-2 rounded-[5px] border border-[#4af699]/20">
+                  <div className="flex items-center justify-between bg-[#082218] px-3 py-2 rounded-[5px] border border-[#4af699]/25">
                     <div>
                       <div className="text-xs font-bold text-white">
                         Feria Pedro Romero · Gala Unicaja · Teatro Espinel
@@ -406,24 +441,26 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
         <div
           role="dialog"
           aria-modal="true"
+          aria-label={`Captura ampliada del proyecto ${currentProject.name}`}
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#030d09]/90 backdrop-blur-md"
-          onClick={() => setLightboxImg(null)}
+          onClick={closeLightbox}
         >
           <div
             className="relative max-w-3xl max-h-[85%] rounded-[6px] border border-[#4af699] bg-[#05140e] p-2 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
+              ref={closeBtnRef}
               type="button"
-              onClick={() => setLightboxImg(null)}
-              className="absolute top-3 right-3 px-2.5 py-1 rounded-[3px] border border-[#4af699] bg-[#05140e]/90 text-[#4af699] hover:bg-[#4af699] hover:text-[#05130e] font-mono text-xs font-bold inline-flex items-center gap-1 cursor-pointer"
+              onClick={closeLightbox}
+              className="absolute top-3 right-3 min-h-[32px] px-3 py-1 rounded-[4px] border border-[#4af699] bg-[#05140e]/95 text-[#4af699] hover:bg-[#4af699] hover:text-[#05130e] font-mono text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-3.5 h-3.5" aria-hidden="true" />
               <span>CERRAR</span>
             </button>
             <img
               src={lightboxImg}
-              alt={currentProject.name}
+              alt={`Captura completa de ${currentProject.name}`}
               className="max-h-[440px] w-auto object-contain rounded-[4px]"
             />
           </div>

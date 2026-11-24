@@ -39,8 +39,12 @@ export function App() {
         onSelectPersonal={setActivePersonalIndex}
       >
         <main
+          id={`panel-${activeTab}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${activeTab}`}
+          tabIndex={0}
           key={`${activeTab}-${activeCaseIndex}-${activePersonalIndex}`}
-          className="h-full"
+          className="min-h-full focus:outline-none"
         >
           {activeTab === 'projects' && (
             <ProjectsSection

@@ -10,7 +10,7 @@ export const AboutSection: React.FC = () => {
   return (
     <section
       id="about"
-      className="w-full h-[558px] overflow-hidden bg-[#061811] text-[#e6f9ef] p-4 flex flex-col justify-between gap-3.5 font-sans"
+      className="w-full min-h-[558px] bg-[#061811] text-[#e6f9ef] p-4 pb-8 md:pb-4 flex flex-col justify-between gap-3.5 font-sans"
     >
       {/* Top Profile Header */}
       <div className="border-b border-[#4af699]/15 pb-3 space-y-2">
@@ -75,7 +75,7 @@ export const AboutSection: React.FC = () => {
                 IES Fuente Grande · Ciclo Formativo de Grado Superior
               </div>
               <div className="font-mono text-[10.5px] text-[#9de8c2]">
-                2023 – 2026
+                2023 - 2026
               </div>
             </div>
 
@@ -87,7 +87,7 @@ export const AboutSection: React.FC = () => {
                 IES Fuente Grande · Ciclo Formativo de Grado Medio
               </div>
               <div className="font-mono text-[10.5px] text-[#9de8c2]">
-                2021 – 2023
+                2021 - 2023
               </div>
             </div>
           </div>
@@ -132,18 +132,18 @@ export const AboutSection: React.FC = () => {
           <div className="pt-2.5 border-t border-[#4af699]/15 flex flex-wrap items-center gap-2">
             <a
               href="#contact"
-              className="inline-flex items-center gap-1.5 rounded-[5px] bg-[#4af699] px-3 py-1.5 text-xs font-bold text-[#05130e] hover:brightness-110 transition-all"
+              className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[5px] bg-[#4af699] px-3 py-1.5 text-xs font-bold text-[#05130e] hover:brightness-110 active:scale-[0.98] transition-all"
             >
-              <Mail className="w-3.5 h-3.5" />
+              <Mail className="w-3.5 h-3.5" aria-hidden="true" />
               <span>Contactar</span>
             </a>
             <a
               href={CONTACT_INFO.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-[5px] border border-[#4af699]/35 bg-[#082218] px-3 py-1.5 text-xs font-semibold text-[#4af699] hover:border-[#4af699] transition-colors"
+              className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[5px] border border-[#4af699]/55 bg-[#082218] px-3 py-1.5 text-xs font-semibold text-[#4af699] hover:bg-[#0f3828] hover:text-white hover:border-[#4af699] active:scale-[0.98] transition-all"
             >
-              <Github className="w-3.5 h-3.5" />
+              <Github className="w-3.5 h-3.5" aria-hidden="true" />
               <span>GitHub (Josemg5)</span>
             </a>
           </div>
