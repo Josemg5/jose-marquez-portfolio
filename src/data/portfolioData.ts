@@ -106,7 +106,7 @@ export const PROJECTS_LIST: ProjectCardData[] = [
   {
     id: 'circuito-ascari',
     number: '01',
-    categoryDate: 'Marzo - Mayo 2026 | Ronda',
+    categoryDate: 'Marzo a Mayo 2026 | Ronda',
     title: 'Circuito Ascari: Programador Informático',
     company: 'Circuito Ascari',
     role: 'Programador Informático',
@@ -135,7 +135,7 @@ export const PROJECTS_LIST: ProjectCardData[] = [
   {
     id: 'sapphire-house-antwerp',
     number: '02',
-    categoryDate: 'Abril - Junio 2023 | Amberes, Bélgica',
+    categoryDate: 'Abril a Junio 2023 | Amberes, Bélgica',
     title: 'Sapphire House Antwerp: Técnico Soporte IT',
     company: 'Sapphire House Antwerp',
     role: 'Técnico Soporte IT (Prácticas Internacionales)',
@@ -157,7 +157,7 @@ export const PROJECTS_LIST: ProjectCardData[] = [
   {
     id: 'clinica-pc-decathlon',
     number: '03',
-    categoryDate: '2023 - 2026 | Ronda, Málaga',
+    categoryDate: '2023 a 2026 | Ronda, Málaga',
     title: 'Clínica PC & Decathlon: Hardware y Atención al Cliente',
     company: 'Clínica PC & Decathlon',
     role: 'Técnico Hardware & Atención al Cliente',

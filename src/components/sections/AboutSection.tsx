@@ -1,5 +1,12 @@
 import React from 'react';
-import { Github, Mail, GraduationCap, Award, MapPin } from 'lucide-react';
+import {
+  Github,
+  Mail,
+  GraduationCap,
+  Award,
+  MapPin,
+  Download,
+} from 'lucide-react';
 import {
   ABOUT_BADGES,
   ABOUT_PARAGRAPH,
@@ -54,40 +61,47 @@ export const AboutSection: React.FC = () => {
             Formación Académica Oficial
           </h3>
 
-          <div className="space-y-3 border-l-2 border-[#4af699]/30 pl-3.5">
-            <div>
-              <div className="text-[13px] font-bold text-white leading-snug">
-                Curso de Especialización en Ciberseguridad en Entornos TI
+          <div className="space-y-2.5">
+            <div className="rounded-[5px] border border-[#4af699]/25 bg-[#04120c] px-3.5 py-2.5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="text-[13px] font-bold text-white leading-snug">
+                  Curso de Especialización en Ciberseguridad en Entornos TI
+                </div>
+                <span className="inline-flex items-center gap-1.5 font-mono text-[10.5px] font-bold text-[#4af699]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#4af699]" aria-hidden="true" />
+                  Cursando actualmente
+                </span>
               </div>
-              <div className="text-[12px] text-[#c6f3dc]">
+              <div className="text-[12px] text-[#c6f3dc] mt-0.5">
                 IES Fuente Grande · Especialización Oficial (Máster FP)
               </div>
-              <div className="font-mono text-[10.5px] text-[#4af699]">
-                Cursando actualmente
-              </div>
             </div>
 
-            <div>
-              <div className="text-[13px] font-bold text-white leading-snug">
-                Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)
+            <div className="rounded-[5px] border border-[#4af699]/25 bg-[#04120c] px-3.5 py-2.5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="text-[13px] font-bold text-white leading-snug">
+                  Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)
+                </div>
+                <span className="font-mono text-[10.5px] text-[#9de8c2]">
+                  2023 a 2026
+                </span>
               </div>
-              <div className="text-[12px] text-[#c6f3dc]">
+              <div className="text-[12px] text-[#c6f3dc] mt-0.5">
                 IES Fuente Grande · Ciclo Formativo de Grado Superior
               </div>
-              <div className="font-mono text-[10.5px] text-[#9de8c2]">
-                2023 - 2026
-              </div>
             </div>
 
-            <div>
-              <div className="text-[13px] font-bold text-white leading-snug">
-                Técnico en Sistemas Microinformáticos y Redes (SMR)
+            <div className="rounded-[5px] border border-[#4af699]/25 bg-[#04120c] px-3.5 py-2.5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="text-[13px] font-bold text-white leading-snug">
+                  Técnico en Sistemas Microinformáticos y Redes (SMR)
+                </div>
+                <span className="font-mono text-[10.5px] text-[#9de8c2]">
+                  2021 a 2023
+                </span>
               </div>
-              <div className="text-[12px] text-[#c6f3dc]">
+              <div className="text-[12px] text-[#c6f3dc] mt-0.5">
                 IES Fuente Grande · Ciclo Formativo de Grado Medio
-              </div>
-              <div className="font-mono text-[10.5px] text-[#9de8c2]">
-                2021 - 2023
               </div>
             </div>
           </div>
@@ -138,13 +152,21 @@ export const AboutSection: React.FC = () => {
               <span>Contactar</span>
             </a>
             <a
+              href={CONTACT_INFO.cvUrl}
+              download={CONTACT_INFO.cvFilename}
+              className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[5px] border border-[#4af699]/55 bg-[#082218] px-3 py-1.5 text-xs font-semibold text-[#4af699] hover:bg-[#0f3828] hover:text-white hover:border-[#4af699] active:scale-[0.98] transition-all"
+            >
+              <Download className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>CV PDF</span>
+            </a>
+            <a
               href={CONTACT_INFO.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[5px] border border-[#4af699]/55 bg-[#082218] px-3 py-1.5 text-xs font-semibold text-[#4af699] hover:bg-[#0f3828] hover:text-white hover:border-[#4af699] active:scale-[0.98] transition-all"
             >
               <Github className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>GitHub (Josemg5)</span>
+              <span>GitHub</span>
             </a>
           </div>
         </div>

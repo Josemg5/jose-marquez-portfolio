@@ -52,14 +52,15 @@ export const PersonalProjectsSection: React.FC<PersonalProjectsSectionProps> = (
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
+        e.stopPropagation();
         closeLightbox();
       } else if (e.key === 'Tab') {
         e.preventDefault();
         closeBtnRef.current?.focus();
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown, true);
+    return () => window.removeEventListener('keydown', handleKeyDown, true);
   }, [lightboxImg]);
 
   const currentProject =

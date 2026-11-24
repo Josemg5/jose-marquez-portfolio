@@ -21,41 +21,60 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   onSelectCase,
 }) => {
   const shouldReduceMotion = useReducedMotion();
-  const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const lastTriggerRef = useRef<HTMLElement | null>(null);
 
-  const openLightbox = (imgUrl: string, triggerEl?: HTMLElement | null) => {
+  const currentProject =
+    PROJECTS_LIST[activeCaseIndex] || PROJECTS_LIST[0];
+
+  const galleryImages = [
+    currentProject.images.col2Tall,
+    currentProject.images.col1Top,
+    currentProject.images.col1Bottom,
+  ];
+
+  const openLightbox = (imgIndex: number, triggerEl?: HTMLElement | null) => {
     lastTriggerRef.current =
       triggerEl || (document.activeElement as HTMLElement | null);
-    setLightboxImg(imgUrl);
+    setLightboxIndex(imgIndex);
   };
 
   const closeLightbox = () => {
-    setLightboxImg(null);
+    setLightboxIndex(null);
     requestAnimationFrame(() => {
       lastTriggerRef.current?.focus();
     });
   };
 
   useEffect(() => {
-    if (!lightboxImg) return;
+    if (lightboxIndex === null) return;
     closeBtnRef.current?.focus();
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
+        e.stopPropagation();
         closeLightbox();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        setLightboxIndex((prev) =>
+          prev === null ? 0 : (prev + 1) % galleryImages.length
+        );
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        setLightboxIndex((prev) =>
+          prev === null
+            ? 0
+            : (prev - 1 + galleryImages.length) % galleryImages.length
+        );
       } else if (e.key === 'Tab') {
         e.preventDefault();
         closeBtnRef.current?.focus();
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxImg]);
-
-  const currentProject =
-    PROJECTS_LIST[activeCaseIndex] || PROJECTS_LIST[0];
+    window.addEventListener('keydown', handleKeyDown, true);
+    return () => window.removeEventListener('keydown', handleKeyDown, true);
+  }, [lightboxIndex, galleryImages.length]);
 
   const handleStep = (delta: number) => {
     if (!onSelectCase) return;
@@ -188,9 +207,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
             <button
               type="button"
               aria-label={`Ampliar foto principal de ${currentProject.company}`}
-              onClick={(e) =>
-                openLightbox(currentProject.images.col2Tall, e.currentTarget)
-              }
+              onClick={(e) => openLightbox(0, e.currentTarget)}
               className="col-span-7 h-[190px] relative group overflow-hidden rounded-[6px] border border-[#4af699]/55 hover:border-[#4af699] bg-[#04100b] cursor-pointer transition-colors"
             >
               <img
@@ -207,9 +224,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               <button
                 type="button"
                 aria-label={`Ampliar segunda foto de ${currentProject.company}`}
-                onClick={(e) =>
-                  openLightbox(currentProject.images.col1Top, e.currentTarget)
-                }
+                onClick={(e) => openLightbox(1, e.currentTarget)}
                 className="h-[91px] relative group overflow-hidden rounded-[6px] border border-[#4af699]/55 hover:border-[#4af699] bg-[#04100b] cursor-pointer transition-colors"
               >
                 <img
@@ -221,9 +236,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               <button
                 type="button"
                 aria-label={`Ampliar tercera foto de ${currentProject.company}`}
-                onClick={(e) =>
-                  openLightbox(currentProject.images.col1Bottom, e.currentTarget)
-                }
+                onClick={(e) => openLightbox(2, e.currentTarget)}
                 className="h-[91px] relative group overflow-hidden rounded-[6px] border border-[#4af699]/55 hover:border-[#4af699] bg-[#04100b] cursor-pointer transition-colors"
               >
                 <img
@@ -362,7 +375,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       </div>
 
       {/* LIGHTBOX FOR REAL PHOTOS */}
-      {lightboxImg && (
+      {lightboxIndex !== null && (
         <div
           role="dialog"
           aria-modal="true"
@@ -371,22 +384,53 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           onClick={closeLightbox}
         >
           <div
-            className="relative max-w-3xl max-h-[85%] rounded-[6px] border border-[#4af699] bg-[#05140e] p-2 shadow-2xl"
+            className="relative max-w-3xl max-h-[85%] rounded-[6px] border border-[#4af699] bg-[#05140e] p-2 shadow-2xl flex flex-col gap-2"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              ref={closeBtnRef}
-              type="button"
-              onClick={closeLightbox}
-              className="absolute top-3 right-3 min-h-[32px] px-3 py-1 rounded-[4px] border border-[#4af699] bg-[#05140e]/95 text-[#4af699] hover:bg-[#4af699] hover:text-[#05130e] font-mono text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer"
-            >
-              <X className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>CERRAR</span>
-            </button>
+            <div className="flex items-center justify-between gap-2 px-1">
+              <span className="font-mono text-xs font-bold text-[#9de8c2]">
+                {currentProject.company} · FOTO {lightboxIndex + 1} /{' '}
+                {galleryImages.length}
+              </span>
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setLightboxIndex(
+                      (lightboxIndex - 1 + galleryImages.length) %
+                        galleryImages.length
+                    )
+                  }
+                  aria-label="Fotografía anterior"
+                  className="min-h-[30px] px-2 py-1 rounded-[4px] border border-[#4af699]/55 bg-[#092319] text-[#4af699] hover:bg-[#4af699] hover:text-[#05130e] inline-flex items-center cursor-pointer"
+                >
+                  <ChevronLeft className="w-4 h-4" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setLightboxIndex((lightboxIndex + 1) % galleryImages.length)
+                  }
+                  aria-label="Siguiente fotografía"
+                  className="min-h-[30px] px-2 py-1 rounded-[4px] border border-[#4af699]/55 bg-[#092319] text-[#4af699] hover:bg-[#4af699] hover:text-[#05130e] inline-flex items-center cursor-pointer"
+                >
+                  <ChevronRight className="w-4 h-4" aria-hidden="true" />
+                </button>
+                <button
+                  ref={closeBtnRef}
+                  type="button"
+                  onClick={closeLightbox}
+                  className="min-h-[30px] px-3 py-1 rounded-[4px] border border-[#4af699] bg-[#05140e] text-[#4af699] hover:bg-[#4af699] hover:text-[#05130e] font-mono text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>CERRAR</span>
+                </button>
+              </div>
+            </div>
             <img
-              src={lightboxImg}
-              alt={currentProject.company}
-              className="max-h-[440px] w-auto object-contain rounded-[4px]"
+              src={galleryImages[lightboxIndex]}
+              alt={`${currentProject.company} ${lightboxIndex + 1}`}
+              className="max-h-[420px] w-auto object-contain rounded-[4px]"
             />
           </div>
         </div>

@@ -10,27 +10,13 @@ import {
 } from 'lucide-react';
 import { ScrollContainerContext } from '../../context/ScrollContainerContext';
 
-const CF = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/';
-const HX = (u: string, w = 2048) =>
-  `https://images.higgs.ai/?default=1&output=webp&url=${encodeURIComponent(u)}&w=${w}&q=85`;
-
-const FALLBACK_PLATE_URL = HX(
-  CF + 'hf_20261111_001031_a09dc558-2c69-4e05-83a4-5f01ebdd1363.png'
-);
-const FALLBACK_CUT_URL = HX(
-  CF + 'hf_20261111_001143_ec356b1a-50a2-4b50-82fc-e346c914a406.png'
-);
-const CASE_PLATE_URL = HX(
-  CF + 'hf_20261111_001031_4a7c3fd9-2168-4219-9736-096a17bbb0e2.png'
-);
-const BADGE_URL = HX(
-  CF + 'hf_20261111_001143_65c037e6-0768-4b12-9f17-17be132ce16b.png',
-  1200
-);
-
 const JOSE_STUDIO_PLATE = '/studio-fondo.png?v=4';
 const JOSE_STUDIO_CUT = '/tu-foto.png?v=5';
 const JOSE_ID_PHOTO = '/tu-foto-carnet.jpg';
+const CASE_PLATE_URL = '/laptop-case.webp';
+const BADGE_URL = '/lanyard-badge.webp';
+const FALLBACK_PLATE_URL = JOSE_STUDIO_PLATE;
+const FALLBACK_CUT_URL = JOSE_STUDIO_CUT;
 
 export type DiveStage = 'hero' | 'diving-in' | 'body' | 'diving-out';
 export type PortfolioTabId =
@@ -499,6 +485,13 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
     (tabId?: PortfolioTabId) => {
       if (tabId) {
         onSelectTab(tabId);
+        if (window.location.hash !== `#${tabId}`) {
+          window.history.replaceState(
+            { stage: 'body', tab: tabId },
+            '',
+            `#${tabId}`
+          );
+        }
       }
       triggerMonitorFlash();
       animateCaseHudIn();
@@ -671,6 +664,13 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
       if (stage !== 'hero') return;
 
       onSelectTab(targetTabId);
+      if (window.location.hash !== `#${targetTabId}`) {
+        window.history.pushState(
+          { stage: 'body', tab: targetTabId },
+          '',
+          `#${targetTabId}`
+        );
+      }
 
       busyRef.current = true;
       onStageChange('diving-in');
@@ -939,9 +939,68 @@ export const LaptopDiveHero: React.FC<LaptopDiveHeroProps> = ({
 
   useEffect(() => {
     if (stage === 'diving-out') {
+      if (window.location.hash) {
+        window.history.replaceState(
+          { stage: 'hero' },
+          '',
+          window.location.pathname + window.location.search
+        );
+      }
       triggerReturnToHero();
     }
   }, [stage, triggerReturnToHero]);
+
+  // Sync browser Back/Forward buttons (popstate) and initial URL hash, plus Escape key in laptop mode
+  useEffect(() => {
+    const parseHashTab = (hash: string): PortfolioTabId | null => {
+      const clean = hash.replace(/^#/, '');
+      if (
+        clean === 'about' ||
+        clean === 'projects' ||
+        clean === 'services' ||
+        clean === 'personal' ||
+        clean === 'contact'
+      ) {
+        return clean;
+      }
+      return null;
+    };
+
+    const initialTab = parseHashTab(window.location.hash);
+    if (initialTab && stage === 'hero' && !busyRef.current) {
+      triggerDiveIntoLaptop(initialTab);
+    }
+
+    const handlePopState = () => {
+      const targetTab = parseHashTab(window.location.hash);
+      if (!targetTab) {
+        if (stage === 'body' && !busyRef.current) {
+          onStageChange('diving-out');
+        }
+      } else {
+        if (stage === 'hero' && !busyRef.current) {
+          triggerDiveIntoLaptop(targetTab);
+        } else if (stage === 'body') {
+          selectAndResetTab(targetTab);
+        }
+      }
+    };
+
+    const handleBodyEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && stage === 'body' && !busyRef.current) {
+        if (document.querySelector('[role="dialog"]')) return;
+        e.preventDefault();
+        onStageChange('diving-out');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('keydown', handleBodyEscape);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('keydown', handleBodyEscape);
+    };
+  }, [onStageChange, selectAndResetTab, stage, triggerDiveIntoLaptop]);
 
   useEffect(() => {
     if (stage !== 'hero') return;
